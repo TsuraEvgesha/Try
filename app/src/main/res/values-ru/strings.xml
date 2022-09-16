@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Нмедиа</string>
     <string name="nmedia">Нмедиа!</string>
+    <string name="author" translatable="false">Нетология. Университет интернет-профессий</string>
 </resources>
