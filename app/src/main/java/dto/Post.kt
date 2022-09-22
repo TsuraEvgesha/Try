@@ -5,9 +5,10 @@ data class Post (
     val author:String,
     val authorAvatar: String,
     val published: String,
-    val likes:Int,
+    var likes:Long,
     var liked:Boolean,
-    val sare: Long,
+    var share: Long,
+    var sareReal:Boolean,
     val content:String,
     val view: Long,
 )

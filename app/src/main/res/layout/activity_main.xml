@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:layout_marginStart="5dp"
-        android:text="@string/likes"
+        tools:text="10"
         app:layout_constraintStart_toEndOf="@+id/likes"
         app:layout_constraintTop_toBottomOf="@+id/content" />
 
@@ -141,7 +141,7 @@
         android:id="@+id/number_of_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/share"
+        tools:text="@string/share"
         android:layout_margin="15dp"
         android:layout_marginStart="5dp"
         app:layout_constraintStart_toEndOf="@+id/share"
@@ -152,7 +152,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="@string/visit"
+        tools:text="@string/visit"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/content" />
