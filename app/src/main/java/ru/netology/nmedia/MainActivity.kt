@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
             10,
             false,
             5,
-            false,
             "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растем сами и помогаем расти студентам:от новичков до уверенных профессионалов. Но самое важное остается с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целится выше, бежать быстрее. Наша миссия - помочь встать на путь роста и начать цепочку перемен -> http//netolo.gy/fyb",
             0
         )
@@ -42,19 +41,11 @@ class MainActivity : AppCompatActivity() {
                         R.drawable.ic_outline_favorite_border_24
                     }
                 )
-
             }
             share.setOnClickListener{
                 post.share++
-                post.sareReal=!post.sareReal
                 numberOfShare.text=counter(post.share)
-                share.setImageResource(
-                    if (post.sareReal){
-                        R.drawable.ic_baseline_sharetrue_24
-                    } else{
-                        R.drawable.ic_baseline_sharetrue_24
-                    }
-                )
+                share.setImageResource(R.drawable.ic_baseline_sharetrue_24)
             }
 
         }

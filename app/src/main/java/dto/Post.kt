@@ -8,7 +8,6 @@ data class Post (
     var likes:Long,
     var liked:Boolean,
     var share: Long,
-    var sareReal:Boolean,
     val content:String,
     val view: Long,
 )
