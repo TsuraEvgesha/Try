@@ -73,12 +73,30 @@ class InMemoryPostRepository: PostRepository {
             data.value=posts
     }
 
+    override fun removeById(id: Long) {
+        posts=posts.filter { it.id != id }
+        data.value=posts
+    }
+
 
     override fun shareById(id:Long) {
         posts = posts.map {
             if(it.id != id) it else it.copy(share = (it.share+1))
         }
         data.value=posts
+    }
+
+    override fun editContent(content: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun save(post: Post) {
+        posts = listOf(post.copy(
+                id = posts.firstOrNull()?.id ?: 1L
+            )
+        ) + post
+        data.value = posts
+        return
     }
 
 

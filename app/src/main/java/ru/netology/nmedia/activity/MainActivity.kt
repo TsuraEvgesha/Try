@@ -1,31 +1,52 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import androidx.activity.viewModels
 import ru.netology.nmedia.adapter.PostsAdapter
+import ru.netology.nmedia.util.AndroidUtils
 import viewmodel.PostViewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostsAdapter ({
-            viewModel.likeById(it.id)},
-            {viewModel.shareById(it.id)
-        })
-        binding.list.adapter = adapter
-        viewModel.data.observe(this) { posts ->
-            adapter.list = posts
+        val adapter = PostsAdapter(
+            onLikeListener = { viewModel.likeById(it.id) },
+            onShareListener = { viewModel.shareById(it.id) },
+            onRemoveListener = { viewModel.removeById(it.id) }
+        )
+        binding.save.setOnClickListener {
+            with(binding.contentText) {
+                if (text.isNullOrBlank()) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Content can not be empty",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                viewModel.editContent(text.toString())
+                viewModel.save()
+                AndroidUtils.hideKeyboard(this)
+
+
             }
 
+            binding.list.adapter = adapter
+            viewModel.data.observe(this) { posts ->
+                adapter.submitList(posts)
+            }
         }
     }
+}
 
     fun counter(item: Long): String {
         return when (item) {
@@ -49,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         demFormat.roundingMode = RoundingMode.FLOOR
         return demFormat.format(number).toString()
     }
+
 
 
 
