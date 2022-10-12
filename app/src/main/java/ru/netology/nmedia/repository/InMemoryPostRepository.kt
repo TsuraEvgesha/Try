@@ -86,17 +86,29 @@ class InMemoryPostRepository: PostRepository {
         data.value=posts
     }
 
-    override fun editContent(content: String) {
-        TODO("Not yet implemented")
-    }
+
 
     override fun save(post: Post) {
-        posts = listOf(post.copy(
-                id = posts.firstOrNull()?.id ?: 1L
-            )
-        ) + post
-        data.value = posts
-        return
+        if (post.id ==0L){
+            val newId = (posts.firstOrNull()?.id?:0L)+1
+            posts = listOf(
+                post.copy(
+                    id= newId,
+                    author = "Me",
+                    liked = false,
+                    published = ""
+                )
+            )+ posts
+            data.value=posts
+            return
+        }
+        posts = posts.map{
+            if (it.id != post.id) it else it.copy(content = post.content)
+        }
+        data.value=posts
+
+
+
     }
 
 

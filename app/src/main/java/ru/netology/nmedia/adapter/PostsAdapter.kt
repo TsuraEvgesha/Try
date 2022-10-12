@@ -12,17 +12,19 @@ import ru.netology.nmedia.activity.counter
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-typealias OnLikeListener = (post: Post) -> Unit
-typealias OnRemoveListener = (post: Post) -> Unit
-typealias OnShareListener = (post: Post) -> Unit
-class PostsAdapter (private val onLikeListener: OnLikeListener,private val onShareListener: OnShareListener, private val onRemoveListener: OnRemoveListener): ListAdapter<Post, PostsAdapter.PostViewHolder>(PostDiffCallback())  {
+interface OnInteractionListener {
+    fun onLike(post: Post){}
+    fun onShare(post: Post){}
+    fun onEdit(post: Post){}
+    fun onRemote(post: Post){}
+}
+class PostsAdapter (private val listener: OnInteractionListener): ListAdapter<Post, PostsAdapter.PostViewHolder>(PostDiffCallback())  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return  PostViewHolder(binding,
-            onLikeListener = onLikeListener,
-            onShareListener = onShareListener,
-            onRemoveListener = onRemoveListener
+        return  PostViewHolder(
+            binding= binding,
+            listener=listener
         )
     }
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -33,9 +35,7 @@ class PostsAdapter (private val onLikeListener: OnLikeListener,private val onSha
 
 class PostViewHolder (
     private val binding: CardPostBinding,
-    private val onLikeListener: OnLikeListener,
-    private val onShareListener: OnShareListener,
-    private val onRemoveListener: OnRemoveListener
+    private val listener: OnInteractionListener
     ): RecyclerView.ViewHolder(binding.root){
     fun bind(post: Post){
         binding.apply {
@@ -50,22 +50,27 @@ class PostViewHolder (
             numberOfLikes.text = counter(post.likes)
             numberOfShare.text = counter(post.share)
             likes.setOnClickListener{
-                onLikeListener(post)
+                listener.onLike(post)
 
             }
             share.setOnClickListener {
-                onShareListener(post)
+                listener.onShare(post)
                 share.setImageResource(R.drawable.ic_baseline_sharetrue_24)
             }
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.post_menu)
-                    setOnMenuItemClickListener {
-                        when(it.itemId){
+                    setOnMenuItemClickListener {item->
+                        when(item.itemId){
                             R.id.remove -> {
-                                onRemoveListener(post)
-                                true
-                            } else -> false
+                                listener.onRemote(post)
+                                return@setOnMenuItemClickListener true
+                            }
+                            R.id.edit -> {
+                                listener.onEdit(post)
+                                return@setOnMenuItemClickListener  true
+
+                            }else -> false
                         }
                     }
                 }.show()

@@ -19,14 +19,19 @@ class PostViewModel: ViewModel() {
         }
         edited.value = empty
     }
-    fun editContent(content:String){
-        edited.value?.let{
-            val text =content.trim()
-            if (it.content == text){
+    fun edit(post: Post){
+        edited.value = post
+    }
+    fun editContent(content: String){
+        edited.value.let {
+            val trimmed = content.trim()
+            if (edited.value?.content == trimmed){
                 return
             }
-            edited.value = it.copy(content = text)
+            edited.value = edited.value?.copy(content = trimmed)
         }
     }
 
-}
+
+    }
+
