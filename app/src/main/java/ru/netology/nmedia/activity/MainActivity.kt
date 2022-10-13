@@ -1,7 +1,6 @@
 package ru.netology.nmedia.activity
 
 import android.os.Bundle
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.buttonCancelEdit.setOnClickListener {
-            binding.buttonCancelEdit.visibility = GONE;
+            binding.buttonCancelEdit.visibility = GONE
             with(binding.contentText) {
                 setText("")
                 clearFocus()
@@ -65,8 +64,6 @@ class MainActivity : AppCompatActivity() {
             binding.buttonCancelEdit.visibility= VISIBLE
         }
 
-
-
         binding.save.setOnClickListener {
             with(binding.contentText) {
                 val text = text.toString()
@@ -76,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                         "Content can not be empty",
                         Toast.LENGTH_SHORT
 
-                    )
+                    ).show()
 
                     return@setOnClickListener
                 }
