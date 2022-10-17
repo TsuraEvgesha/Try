@@ -28,10 +28,13 @@ class PostViewModel: ViewModel() {
             if (edited.value?.content == trimmed){
                 return
             }
-            edited.value = edited.value?.copy(content = trimmed)
+            edited.value = edited.value?.copy(content=trimmed)
         }
     }
-
-
+    fun cancelEdit() {
+        edited.value = empty
     }
 
+
+
+}

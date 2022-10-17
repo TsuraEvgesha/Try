@@ -21,9 +21,11 @@
         tools:listitem="@layout/card_post">
 
     </androidx.recyclerview.widget.RecyclerView>
+
     <androidx.constraintlayout.widget.Barrier
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:constraint_referenced_ids="save,contentText,button_cancel_edit" />
 
     <ImageView
         android:id="@+id/save"

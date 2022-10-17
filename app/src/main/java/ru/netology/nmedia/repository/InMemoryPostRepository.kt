@@ -70,7 +70,7 @@ class InMemoryPostRepository: PostRepository {
             if (it.id != id) it else it.copy(liked = !it.liked,
                 likes = if(it.liked) it.likes -1 else it.likes +1)
         }
-            data.value=posts
+        data.value=posts
     }
 
     override fun removeById(id: Long) {
@@ -113,3 +113,5 @@ class InMemoryPostRepository: PostRepository {
 
 
 }
+
+

@@ -17,14 +17,15 @@ interface OnInteractionListener {
     fun onShare(post: Post){}
     fun onEdit(post: Post){}
     fun onRemote(post: Post){}
+
 }
 class PostsAdapter (private val listener: OnInteractionListener): ListAdapter<Post, PostsAdapter.PostViewHolder>(PostDiffCallback())  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return  PostViewHolder(
-            binding= binding,
-            listener=listener
+            binding,
+            listener
         )
     }
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {

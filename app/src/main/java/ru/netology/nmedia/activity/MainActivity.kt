@@ -43,22 +43,30 @@ class MainActivity : AppCompatActivity() {
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
         }
+
+
         viewModel.edited.observe(this){post ->
             if (post.id == 0L){
                 return@observe
             }
             with(binding.contentText) {
-                requestFocus()
                 setText(post.content)
+                requestFocus()
+
             }
+
         }
         binding.buttonCancelEdit.setOnClickListener {
             binding.buttonCancelEdit.visibility = GONE
+
             with(binding.contentText) {
+                viewModel.cancelEdit()
                 setText("")
                 clearFocus()
                 AndroidUtils.hideKeyboard(this)
             }
+
+
         }
         binding.contentText.setOnClickListener{
             binding.buttonCancelEdit.visibility= VISIBLE
@@ -72,7 +80,6 @@ class MainActivity : AppCompatActivity() {
                         this@MainActivity,
                         "Content can not be empty",
                         Toast.LENGTH_SHORT
-
                     ).show()
 
                     return@setOnClickListener
