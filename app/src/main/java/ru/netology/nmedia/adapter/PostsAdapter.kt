@@ -43,20 +43,16 @@ class PostViewHolder (
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            if (post.liked){
-                likes.setImageResource(R.drawable.ic_baseline_favorite_24)
-            } else {
-                likes.setImageResource(R.drawable.ic_outline_favorite_border_24)
-            }
+            share.isChecked = post.shareReal
+            like.isChecked = post.liked
+
             numberOfLikes.text = counter(post.likes)
             numberOfShare.text = counter(post.share)
-            likes.setOnClickListener{
+            like.setOnClickListener{
                 listener.onLike(post)
-
             }
             share.setOnClickListener {
                 listener.onShare(post)
-                share.setImageResource(R.drawable.ic_baseline_sharetrue_24)
             }
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
