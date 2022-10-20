@@ -7,4 +7,6 @@
     <string name="published">21 мая в 18:36</string>
     <string name="post_remove" translatable="false">Удалить</string>
     <string name="edit" translatable="false">Редактировать</string>
+    <string name="shared">Поделились</string>
+    <string name="options">Меню</string>
 </resources>

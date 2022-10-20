@@ -45,7 +45,6 @@ class PostViewHolder (
             content.text = post.content
             share.isChecked = post.shareReal
             like.isChecked = post.liked
-
             numberOfLikes.text = counter(post.likes)
             numberOfShare.text = counter(post.share)
             like.setOnClickListener{

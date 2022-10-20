@@ -145,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        app:buttonTint="@color/gray"
+        android:checkable="true"
         app:icon="@drawable/options_24dp"
         android:contentDescription="@string/options"
         app:layout_constraintEnd_toEndOf="parent"
