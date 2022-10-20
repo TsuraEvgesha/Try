@@ -88,23 +88,6 @@
         tools:ignore="contentDescription,ImageContrastCheck" />
 
     <TextView
-        android:id="@+id/number_of_likes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        app:layout_constraintStart_toEndOf="@+id/like"
-        app:layout_constraintTop_toBottomOf="@+id/content"
-        tools:text="10" />
-
-    <TextView
-        android:id="@+id/number_of_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        app:layout_constraintStart_toEndOf="@+id/share"
-        app:layout_constraintTop_toBottomOf="@+id/content"
-        tools:text="@string/share" />
-    <TextView
         android:id="@+id/number_of_visit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -117,6 +100,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
         style="@style/Widget.AppTheme.LikeCheckBox"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -131,11 +115,12 @@
         style="@style/Widget.AppTheme.ShareCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="18dp"
         android:checkable="true"
         android:contentDescription="@string/shared"
+        android:text=""
         app:icon="@drawable/ic_share_24dp"
-        app:layout_constraintStart_toEndOf="@+id/number_of_likes"
+        app:layout_constraintStart_toEndOf="@+id/like"
         app:layout_constraintTop_toBottomOf="@+id/content"
         tools:ignore="TouchTargetSizeCheck" />
 
