@@ -9,4 +9,5 @@
     <string name="edit" translatable="false">Редактировать</string>
     <string name="shared">Поделились</string>
     <string name="options">Меню</string>
+    <string name="error_empty_content">Поле не может быть пустым</string>
 </resources>
