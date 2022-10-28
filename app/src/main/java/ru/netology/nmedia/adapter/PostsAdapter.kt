@@ -12,17 +12,12 @@ import ru.netology.nmedia.activity.counter
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-interface OnInteractionListener {
-    fun onLike(post: Post){}
-    fun onShare(post: Post){}
-    fun onEdit(post: Post){}
-    fun onRemote(post: Post){}
 
-}
-class PostsAdapter (private val listener: OnInteractionListener): ListAdapter<Post, PostsAdapter.PostViewHolder>(PostDiffCallback())  {
+internal class PostsAdapter (private val listener: PostListener): ListAdapter<Post, PostsAdapter.PostViewHolder>(PostDiffCallback())  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = CardPostBinding.inflate(inflater, parent, false)
         return  PostViewHolder(
             binding,
             listener
@@ -34,9 +29,9 @@ class PostsAdapter (private val listener: OnInteractionListener): ListAdapter<Po
     }
 
 
-class PostViewHolder (
+class PostViewHolder(
     private val binding: CardPostBinding,
-    private val listener: OnInteractionListener
+    private val listener: PostListener
     ): RecyclerView.ViewHolder(binding.root){
     fun bind(post: Post){
         binding.apply {

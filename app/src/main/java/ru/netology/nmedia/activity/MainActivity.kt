@@ -3,14 +3,13 @@ package ru.netology.nmedia.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
-import ru.netology.nmedia.adapter.OnInteractionListener
+import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.AndroidUtils
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.save()
         }
 
-        val adapter = PostsAdapter (object: OnInteractionListener {
+        val adapter = PostsAdapter (object : PostListener {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
@@ -51,6 +50,10 @@ class MainActivity : AppCompatActivity() {
 
             override fun onRemote(post: Post) {
                 viewModel.removeById(post.id)
+            }
+
+            override fun onPlayVideo(post: Post) {
+                TODO("Not yet implemented")
             }
         }
         )
