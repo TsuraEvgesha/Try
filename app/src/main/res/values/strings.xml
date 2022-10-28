@@ -11,6 +11,7 @@
     <string name="edit" translatable="false">Edit</string>
     <string name="shared" translatable="false">Share</string>
     <string name="options" translatable="false">Menu</string>
-    <string name="error_empty_content" translatable="false">Content is empty</string>>
+    <string name="error_empty_content" translatable="false">Content is empty</string>
+    <string name="post_text">Post text</string>>
 </resources>
 

@@ -1,12 +1,15 @@
 package ru.netology.nmedia.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import androidx.activity.viewModels
+import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.dto.Post
@@ -22,7 +25,19 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val viewModel: PostViewModel by viewModels()
+        val newPostLauncher = registerForActivityResult(NewPostActivityContract()){text ->
+            text?: return@registerForActivityResult
+            viewModel.editContent(text)
+            viewModel.save()
+        }
+        val editPostLauncher= registerForActivityResult(EditPostActivityContract()){
+            it?: return@registerForActivityResult
+            viewModel.editContent("")
+            viewModel.save()
+        }
+
         val adapter = PostsAdapter (object: OnInteractionListener {
+
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
             }
@@ -39,23 +54,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         )
+
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
         }
-
-
-        viewModel.edited.observe(this){post ->
-            if (post.id == 0L){
-                return@observe
-            }
-            with(binding.contentText) {
-                setText(post.content)
-                requestFocus()
-
-            }
-
+        binding.create.setOnClickListener{
+            newPostLauncher.launch()
         }
+
         binding.buttonCancelEdit.setOnClickListener {
             binding.buttonCancelEdit.visibility = GONE
 
@@ -69,33 +76,28 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.contentText.setOnClickListener{
-            binding.buttonCancelEdit.visibility= VISIBLE
+            editPostLauncher.launch("")
+            val intent = Intent()
+                .putExtra(Intent.EXTRA_TEXT,"Test text")
+                .setAction(Intent.ACTION_SEND)
+                .setType("text/plain")
+            val createChooser =Intent.createChooser(intent,"Choose app")
+            startActivity(createChooser)
         }
-
-        binding.save.setOnClickListener {
-            with(binding.contentText) {
-                val text = text.toString()
-                if (text.isBlank()) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Content can not be empty",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    return@setOnClickListener
+        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
+            Toast.makeText(this,it,Toast.LENGTH_LONG).show()
+        }?: run {
+            Snackbar.make(binding.root,"Content is empty", Snackbar.LENGTH_SHORT)
+                .setAction(android.R.string.ok) {
+                    finish()
                 }
-                viewModel.editContent(text)
-                viewModel.save()
-                setText("")
-                clearFocus()
-                AndroidUtils.hideKeyboard(this)
-
-            }
-
-
+                .show()
         }
-    }
+       }
+
+
 }
+
 
     fun counter(item: Long): String {
         return when (item) {
