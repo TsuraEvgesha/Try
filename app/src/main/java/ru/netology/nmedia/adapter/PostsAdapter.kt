@@ -4,6 +4,7 @@ package ru.netology.nmedia.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -42,11 +43,24 @@ class PostViewHolder(
             like.isChecked = post.liked
             share.text = counter(post.share)
             like.text = counter(post.likes)
+            videoGroup.isVisible = post.video != null
             like.setOnClickListener{
                 listener.onLike(post)
             }
             share.setOnClickListener {
                 listener.onShare(post)
+            }
+            videoBanner.setOnClickListener {
+                listener.onPlayVideo(post)
+                println("3")
+            }
+            playVideo.setOnClickListener {
+                listener.onPlayVideo(post)
+                println("2")
+            }
+            videoGroup.setOnClickListener {
+                listener.onPlayVideo(post)
+                println("1")
             }
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {

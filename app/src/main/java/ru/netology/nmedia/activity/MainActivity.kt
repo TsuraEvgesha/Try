@@ -1,14 +1,14 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View.GONE
-import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
+import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.dto.Post
@@ -29,22 +29,34 @@ class MainActivity : AppCompatActivity() {
             viewModel.editContent(text)
             viewModel.save()
         }
-        val editPostLauncher= registerForActivityResult(EditPostActivityContract()){
-            it?: return@registerForActivityResult
-            viewModel.editContent("")
+
+
+        val changePostLauncher= registerForActivityResult(ChangePostActivityContract()){post ->
+            post?: return@registerForActivityResult
+
+            viewModel.editContent(post)
             viewModel.save()
         }
 
         val adapter = PostsAdapter (object : PostListener {
 
             override fun onEdit(post: Post) {
+                changePostLauncher.launch(post.content)
                 viewModel.edit(post)
+
             }
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
             }
 
             override fun onShare(post: Post) {
+                val intent = Intent().apply {
+                    action=Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT,post.content)
+                    type="text/plan"
+                }
+                val shareIntent = Intent.createChooser(intent,getString(R.string.share))
+                startActivity(shareIntent)
                 viewModel.shareById(post.id)
             }
 
@@ -53,10 +65,16 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onPlayVideo(post: Post) {
-                TODO("Not yet implemented")
+                Intent(Intent.ACTION_VIEW, Uri.parse(post.video)).apply {
+                    if (intent.resolveActivity(packageManager) != null){
+                        startActivity(intent)
+
+                    }
+                }
             }
         }
         )
+
 
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
@@ -66,41 +84,9 @@ class MainActivity : AppCompatActivity() {
             newPostLauncher.launch()
         }
 
-        binding.buttonCancelEdit.setOnClickListener {
-            binding.buttonCancelEdit.visibility = GONE
-
-            with(binding.contentText) {
-                viewModel.cancelEdit()
-                setText("")
-                clearFocus()
-                AndroidUtils.hideKeyboard(this)
-            }
-
-
-        }
-        binding.contentText.setOnClickListener{
-            editPostLauncher.launch("")
-            val intent = Intent()
-                .putExtra(Intent.EXTRA_TEXT,"Test text")
-                .setAction(Intent.ACTION_SEND)
-                .setType("text/plain")
-            val createChooser =Intent.createChooser(intent,"Choose app")
-            startActivity(createChooser)
-        }
-        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            Toast.makeText(this,it,Toast.LENGTH_LONG).show()
-        }?: run {
-            Snackbar.make(binding.root,"Content is empty", Snackbar.LENGTH_SHORT)
-                .setAction(android.R.string.ok) {
-                    finish()
-                }
-                .show()
-        }
        }
 
-
 }
-
 
     fun counter(item: Long): String {
         return when (item) {

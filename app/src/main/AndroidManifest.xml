@@ -10,18 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nmedia">
         <activity
-            android:name=".IntentHandler"
+            android:name=".activity.ChangePostActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
+
         <activity
             android:name=".activity.NewPostActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
         <activity
             android:name=".activity.MainActivity"

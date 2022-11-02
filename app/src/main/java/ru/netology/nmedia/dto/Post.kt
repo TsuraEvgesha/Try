@@ -11,6 +11,7 @@ data class Post (
     val shareReal: Boolean,
     val content:String,
     val view: Long,
+    val video: String? = null
 )
 
 

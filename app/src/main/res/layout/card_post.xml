@@ -65,14 +65,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatar"
         tools:text="@string/content" />
+    <View
+        android:id="@+id/video_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/ic_banner_foreground"
+        app:layout_constraintTop_toBottomOf="@id/content"/>
+
+    <View
+        android:id="@+id/play_video"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:drawable/ic_media_play"
+        app:layout_constraintTop_toTopOf="@id/video_banner"
+        app:layout_constraintBottom_toBottomOf="@id/video_banner"
+        app:layout_constraintStart_toStartOf="@id/video_banner"
+        app:layout_constraintEnd_toEndOf="@id/video_banner"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/video_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="play_video,video_banner"
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/post_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:barrierDirection="bottom"
         app:barrierMargin="10dp"
-        app:constraint_referenced_ids="content,like"
+        app:constraint_referenced_ids="video_banner,like"
         tools:layout_editor_absoluteY="731dp" />
 
     <ImageView
@@ -83,7 +107,7 @@
         android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toStartOf="@+id/number_of_visit"
-        app:layout_constraintTop_toBottomOf="@+id/content"
+        app:layout_constraintTop_toBottomOf="@+id/video_banner"
         app:srcCompat="@drawable/ic_baseline_visibility_24"
         tools:ignore="contentDescription,ImageContrastCheck" />
 
@@ -95,7 +119,7 @@
         tools:text="@string/visit"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content" />
+        app:layout_constraintTop_toBottomOf="@+id/video_banner" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
@@ -107,7 +131,7 @@
         android:checkable="true"
         app:icon="@drawable/ic_like_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content"
+        app:layout_constraintTop_toBottomOf="@+id/video_banner"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.button.MaterialButton
@@ -121,7 +145,7 @@
         android:text=""
         app:icon="@drawable/ic_share_24dp"
         app:layout_constraintStart_toEndOf="@+id/like"
-        app:layout_constraintTop_toBottomOf="@+id/content"
+        app:layout_constraintTop_toBottomOf="@+id/video_banner"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.button.MaterialButton
@@ -138,6 +162,8 @@
         app:layout_constraintStart_toEndOf="@+id/author"
         app:layout_constraintTop_toBottomOf="@+id/content"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.repository.InMemoryPostRepository
 import ru.netology.nmedia.repository.PostRepository
-private val empty = Post(0,"","","",0,false,0,false,"",0)
+private val empty = Post(0,"","","",0,false,0,false,"",0, "https://www.youtube.com/")
 class PostViewModel: ViewModel() {
     private  val repository: PostRepository = InMemoryPostRepository()
     val data = repository.getAll()
@@ -31,9 +31,7 @@ class PostViewModel: ViewModel() {
             edited.value = edited.value?.copy(content=trimmed)
         }
     }
-    fun cancelEdit() {
-        edited.value = empty
-    }
+
 
 
 
