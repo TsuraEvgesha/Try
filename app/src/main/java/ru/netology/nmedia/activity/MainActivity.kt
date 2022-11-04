@@ -3,7 +3,6 @@ package ru.netology.nmedia.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View.GONE
 import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -12,7 +11,6 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.util.AndroidUtils
 import viewmodel.PostViewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -65,9 +63,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onPlayVideo(post: Post) {
-                Intent(Intent.ACTION_VIEW, Uri.parse(post.video)).apply {
-                    if (intent.resolveActivity(packageManager) != null){
-                        startActivity(intent)
+                Intent(Intent.ACTION_VIEW,
+                    Uri.parse(post.video)).apply {
+                    if (resolveActivity(packageManager) != null){
+                        startActivity(this)
 
                     }
                 }
