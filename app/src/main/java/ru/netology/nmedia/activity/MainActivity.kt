@@ -1,5 +1,6 @@
 package ru.netology.nmedia.activity
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +8,8 @@ import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import androidx.activity.viewModels
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
@@ -21,6 +24,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        run {
+//            val preferences= getPreferences(Context.MODE_PRIVATE)
+//            preferences.edit().apply {
+//                putString("key","value")
+//                commit()
+//            }
+//        }
+//        run {
+//            getPreferences(Context.MODE_PRIVATE)
+//                .getString("key","no value")?.let {
+//                    Snackbar.make(binding.root,it,BaseTransientBottomBar.LENGTH_INDEFINITE)
+//                        .show()
+//                }
+//        }
         val viewModel: PostViewModel by viewModels()
         val newPostLauncher = registerForActivityResult(NewPostActivityContract()){text ->
             text?: return@registerForActivityResult
@@ -73,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         )
+
 
 
         binding.list.adapter = adapter
