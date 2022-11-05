@@ -10,7 +10,7 @@ import ru.netology.nmedia.dto.Post
 
 
 class PostRepositoryFileImpl (
-    context: Context
+    val context: Context
 ) : PostRepository {
     private val gson = Gson()
     private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
@@ -26,7 +26,7 @@ class PostRepositoryFileImpl (
                 data.value = posts
             }
         } else {
-            //sync()
+            sync()
         }
     }
 
@@ -39,13 +39,13 @@ class PostRepositoryFileImpl (
             )
         }
         data.value = posts
-       // sync()
+        sync()
     }
 
     override fun removeById(id: Long) {
         posts = posts.filter { it.id != id }
         data.value = posts
-        //sync()
+        sync()
     }
 
     override fun shareById(id: Long) {
@@ -53,7 +53,7 @@ class PostRepositoryFileImpl (
             if (it.id != id) it else it.copy(share = (it.share + 1))
         }
         data.value = posts
-       // sync()
+        sync()
     }
 
     override fun save(post: Post) {
@@ -74,15 +74,15 @@ class PostRepositoryFileImpl (
             if (it.id != post.id) it else it.copy(content = post.content)
         }
         data.value = posts
-        //sync()
+        sync()
 
 
     }
 
-//    private fun sync() {
-//       context.openFileOutput(filename,Context.MODE_PRIVATE).bufferedWriter().use{
-//           it.write(gson.toJson(posts))
-//       }
-//    }
+    private fun sync() {
+       context.openFileOutput(filename,Context.MODE_PRIVATE).bufferedWriter().use{
+           it.write(gson.toJson(posts))
+       }
+    }
     // не распознается context и как следствие it
 }

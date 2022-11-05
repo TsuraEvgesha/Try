@@ -13,7 +13,7 @@ import ru.netology.nmedia.repository.PostRepositorySharedPrefsImpl
 private val empty = Post(0,"","","",0,false,0,false,"",0, "https://www.youtube.com/")
 class PostViewModel (application: Application): AndroidViewModel(application) {
 //    private  val repository: PostRepository = InMemoryPostRepository()
-    private val repository: PostRepository = PostRepositorySharedPrefsImpl(application)
+    private val repository: PostRepository = PostRepositoryFileImpl(application)
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
     fun likeById(id:Long) = repository.likeById(id)
