@@ -3,15 +3,26 @@ package ru.netology.nmedia.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import ru.netology.nmedia.databinding.ActivityChangePostBinding
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ru.netology.nmedia.databinding.FragmentChangePostBinding
 
 
-class ChangePostActivity: AppCompatActivity(){
-    override fun onCreate(savedInstanceState: Bundle?) {
+class ChangePostFragment: Fragment(){
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
-        val binding = ActivityChangePostBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val binding = FragmentChangePostBinding.inflate(
+        inflater,
+        container,
+        false)
+        val intent= Intent()
         val extras = intent.extras
         if (extras != null){
             binding.contentText.setText(extras.getString(RESULT_KEY_EDIT))
@@ -21,17 +32,19 @@ class ChangePostActivity: AppCompatActivity(){
             val intent=Intent()
             val text = binding.contentText.text
             if (text.isNullOrBlank()) {
-                setResult(Activity.RESULT_CANCELED, intent)
+                activity?.setResult(Activity.RESULT_CANCELED, intent)
             } else{
                 val content=text.toString()
                 intent.putExtra(RESULT_KEY,content)
-                setResult(Activity.RESULT_OK,intent)
+                activity?.setResult(Activity.RESULT_OK,intent)
             }
-            finish()
+            findNavController().navigateUp()
 
 
         }
+        return binding.root
     }
+
     private companion object {
         private const val RESULT_KEY = "postNewContent"
         private const val RESULT_KEY_EDIT = "postEditContent"

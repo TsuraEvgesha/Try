@@ -98,9 +98,9 @@ class FeedFragment : Fragment() {
             override fun onPlayVideo(post: Post) {
                 Intent(Intent.ACTION_VIEW,
                     Uri.parse(post.video)).apply {
-                    if (resolveActivity(packageManager) != null){
+//                    if (resolveActivity(packageManager) != null){
                         startActivity(this)
-                    }
+//                    }
                 }
             }
         }
