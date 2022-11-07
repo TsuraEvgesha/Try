@@ -1,29 +1,46 @@
 package ru.netology.nmedia.activity
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.launch
-import androidx.appcompat.app.AppCompatActivity
-import ru.netology.nmedia.databinding.ActivityMainBinding
-import androidx.activity.viewModels
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
+import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
 import viewmodel.PostViewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-class MainActivity : AppCompatActivity() {
+class FeedFragment : Fragment() {
+    private val viewModel: PostViewModel by viewModels(
+        ownerProducer= ::requireParentFragment
+    )
+    companion object {
+        private  const val TEXT_KEY="TEXT_KEY"
+        var Bundle.textArg: String?
+        set(value) = putString(TEXT_KEY, value)
+        get() = getString(TEXT_KEY)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentFeedBinding.inflate(
+            inflater,
+            container,
+            false
+        )
 //        run {
 //            val preferences= getPreferences(Context.MODE_PRIVATE)
 //            preferences.edit().apply {
@@ -38,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 //                        .show()
 //                }
 //        }
-        val viewModel: PostViewModel by viewModels()
         val newPostLauncher = registerForActivityResult(NewPostActivityContract()){text ->
             text?: return@registerForActivityResult
             viewModel.editContent(text)
@@ -84,7 +100,6 @@ class MainActivity : AppCompatActivity() {
                     Uri.parse(post.video)).apply {
                     if (resolveActivity(packageManager) != null){
                         startActivity(this)
-
                     }
                 }
             }
@@ -93,15 +108,18 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         binding.list.adapter = adapter
-        viewModel.data.observe(this) { posts ->
+        viewModel.data.observe(viewLifecycleOwner) { posts ->
             adapter.submitList(posts)
         }
         binding.create.setOnClickListener{
-            newPostLauncher.launch()
-        }
+            findNavController().navigate(R.id.action_feedFragment2_to_newPostFragment2)
 
-       }
+        }
+        return binding.root
+    }
+
 
 }
 

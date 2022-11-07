@@ -44,14 +44,8 @@ class PostViewHolder(
             like.isChecked = post.liked
             share.text = counter(post.share)
             like.text = counter(post.likes)
-//            videoGroup.isVisible = post.video !=null
-         
-            if (post.video != null){
-                videoGroup.isVisible
-            } else{
-                videoGroup.isGone
+            videoGroup.isVisible = post.video !=null
 
-            }
             like.setOnClickListener{
                 listener.onLike(post)
             }
