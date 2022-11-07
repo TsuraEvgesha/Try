@@ -39,8 +39,6 @@ class NewPostFragment: Fragment() {
                 activity?.setResult(Activity.RESULT_OK,intent)
             }
             findNavController().navigateUp()
-
-
         }
         return binding.root
     }
