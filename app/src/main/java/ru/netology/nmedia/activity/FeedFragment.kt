@@ -55,7 +55,7 @@ class FeedFragment : Fragment() {
 //                        .show()
 //                }
 //        }
-        val newPostLauncher = registerForActivityResult(NewPostActivityContract()){text ->
+        val newPostLauncher = registerForActivityResult(ChangePostActivityContract()){text ->
             text?: return@registerForActivityResult
             viewModel.editContent(text)
             viewModel.save()
@@ -64,7 +64,6 @@ class FeedFragment : Fragment() {
 
         val changePostLauncher= registerForActivityResult(ChangePostActivityContract()){post ->
             post?: return@registerForActivityResult
-
             viewModel.editContent(post)
             viewModel.save()
         }

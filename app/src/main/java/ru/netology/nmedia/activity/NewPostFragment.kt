@@ -3,7 +3,6 @@ package ru.netology.nmedia.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,14 +23,19 @@ class NewPostFragment: Fragment() {
             container,
             false
         )
+        val intent= Intent()
+        val extras = intent.extras
+        if (extras != null){
+            binding.contentText.setText(extras.getString(RESULT_KEY_EDIT))
+        }
         binding.contentText.requestFocus()
         binding.save.setOnClickListener{
-            val intent= Intent()
-            if (TextUtils.isEmpty(binding.contentText.text)) {
+            val text = binding.contentText.text
+            if (text.isNullOrBlank()) {
                 activity?.setResult(Activity.RESULT_CANCELED,intent)
                } else{
-                val content=binding.contentText.text.toString()
-                intent.putExtra(Intent.EXTRA_TEXT,content)
+                val content=text.toString()
+                intent.putExtra(RESULT_KEY,content)
                 activity?.setResult(Activity.RESULT_OK,intent)
             }
             findNavController().navigateUp()
@@ -40,6 +44,11 @@ class NewPostFragment: Fragment() {
         }
         return binding.root
     }
-
+    private companion object {
+        private const val RESULT_KEY = "postNewContent"
+        private const val RESULT_KEY_EDIT = "postEditContent"
     }
+}
+
+
 
