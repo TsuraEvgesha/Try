@@ -55,23 +55,21 @@ class FeedFragment : Fragment() {
 //                        .show()
 //                }
 //        }
-        val newPostLauncher = registerForActivityResult(ChangePostActivityContract()){text ->
-            text?: return@registerForActivityResult
-            viewModel.editContent(text)
-            viewModel.save()
-        }
+//        val newPostLauncher = registerForActivityResult(ChangePostActivityContract()){text ->
+//            text?: return@registerForActivityResult
+//            viewModel.editContent(text)
+//            viewModel.save()
+//        }
 
 
-        val changePostLauncher= registerForActivityResult(ChangePostActivityContract()){post ->
-            post?: return@registerForActivityResult
-            viewModel.editContent(post)
-            viewModel.save()
-        }
+
 
         val adapter = PostsAdapter (object : PostListener {
 
             override fun onEdit(post: Post) {
-                changePostLauncher.launch(post.content)
+                val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2(post.content.toString())
+                findNavController().navigate(action)
+
                 viewModel.edit(post)
 
             }
@@ -97,15 +95,19 @@ class FeedFragment : Fragment() {
             override fun onPlayVideo(post: Post) {
                 Intent(Intent.ACTION_VIEW,
                     Uri.parse(post.video)).apply {
-//                    if (resolveActivity(packageManager) != null){
+                    if (requireContext().packageManager != null){
                         startActivity(this)
-//                    }
+                    }
                 }
+            }
+
+            override fun onPost(post: Post) {
+                val action=FeedFragmentDirections.actionFeedFragment2ToPostFragment(post.id.toInt())
+                findNavController().navigate(action)
+
             }
         }
         )
-
-
 
 
         binding.list.adapter = adapter
@@ -113,9 +115,15 @@ class FeedFragment : Fragment() {
             adapter.submitList(posts)
         }
         binding.create.setOnClickListener{
-            findNavController().navigate(R.id.action_feedFragment2_to_newPostFragment2)
+            val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2("")
+            findNavController().navigate(action)
+
 
         }
+
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.nav_host_fragment_container,PostFragment.newInstance("1","2"))
+//            .commit()
         return binding.root
     }
 

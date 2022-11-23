@@ -8,4 +8,5 @@ interface PostListener  {
     fun onRemote(post: Post)
     fun onEdit(post: Post)
     fun onPlayVideo(post: Post)
+    fun onPost(post: Post)
 }
