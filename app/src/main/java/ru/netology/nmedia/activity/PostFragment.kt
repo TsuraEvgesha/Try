@@ -50,18 +50,12 @@ class PostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding= FragmentPostBinding.inflate(inflater,container, false)
-        val changePostLauncher= registerForActivityResult(ChangePostActivityContract()){post ->
-            post?: return@registerForActivityResult
-            viewModel.editContent(post)
-            viewModel.save()
-        }
         val viewHolder= PostsAdapter.PostViewHolder(binding.cardPost, object : PostListener {
 
             override fun onEdit(post: Post) {
-                changePostLauncher.launch(post.content)
+                val action = PostFragmentDirections.actionPostFragmentToNewPostFragment2(post.content)
+                findNavController().navigate(action)
                 viewModel.edit(post)
-
-
             }
 
             override fun onLike(post: Post) {

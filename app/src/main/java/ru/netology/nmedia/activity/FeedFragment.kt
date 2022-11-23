@@ -67,7 +67,7 @@ class FeedFragment : Fragment() {
         val adapter = PostsAdapter (object : PostListener {
 
             override fun onEdit(post: Post) {
-                val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2(post.content.toString())
+                val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2(post.content)
                 findNavController().navigate(action)
 
                 viewModel.edit(post)
