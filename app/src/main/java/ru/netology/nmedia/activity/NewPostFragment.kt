@@ -1,6 +1,6 @@
 package ru.netology.nmedia.activity
 
-import android.content.Intent
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,8 @@ import ru.netology.nmedia.util.AndroidUtils
 import viewmodel.PostViewModel
 
 
-class NewPostFragment: Fragment() {
+class
+NewPostFragment: Fragment() {
 //    companion object {
 //        var Bundle.textArg: String? by StringArg
 //    }

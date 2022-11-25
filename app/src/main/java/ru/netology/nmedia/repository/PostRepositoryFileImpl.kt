@@ -80,9 +80,9 @@ class PostRepositoryFileImpl (
     }
 
     private fun sync() {
-       context.openFileOutput(filename,Context.MODE_PRIVATE).bufferedWriter().use{
-           it.write(gson.toJson(posts))
-       }
+        context.openFileOutput(filename,Context.MODE_PRIVATE).bufferedWriter().use{
+            it.write(gson.toJson(posts))
+        }
     }
-    // не распознается context и как следствие it
+
 }
