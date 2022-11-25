@@ -8,7 +8,7 @@ import ru.netology.nmedia.repository.AppDb
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.repository.PostRepositorySQLiteImpl
 
-private val empty = Post(0,"","","",0,false,0,false,"",0, "https://www.youtube.com/")
+private val empty = Post(0,"","",0,false,0,false,"",0, "https://www.youtube.com/")
 class PostViewModel(application: Application): AndroidViewModel(application) {
     private val repository: PostRepository = PostRepositorySQLiteImpl(AppDb.getInstance(application).postDao)
 //    private val repository: PostRepository = PostRepositoryFileImpl(application)

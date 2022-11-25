@@ -18,7 +18,6 @@ class PostDaoImpl (private  val db: SQLiteDatabase): PostDao {
             ${PostColumns.COLUMN_LIKES} INTEGER NOT NULL DEFAULT 0,
             ${PostColumns.COLUMN_SHARE} INTEGER NOT NULL DEFAULT 0,
             ${PostColumns.COLUMN_SHARE_REAL} BOOLEAN NOT NULL DEFAULT 0,
-            ${PostColumns.COLUMN_AUTHOR_AVATAR} TEXT,
             ${PostColumns.COLUMN_VIEW} INTEGER NOT NULL DEFAULT 0,
             ${PostColumns.COLUMN_VIDEO} TEXT
           
@@ -35,7 +34,6 @@ class PostDaoImpl (private  val db: SQLiteDatabase): PostDao {
         const val COLUMN_LIKES = "likes"
         const val COLUMN_SHARE = "share"
         const val COLUMN_SHARE_REAL = "shareReal"
-        const val COLUMN_AUTHOR_AVATAR = "authorAvatar"
         const val COLUMN_VIEW = "view"
         const val COLUMN_VIDEO = "video"
         val ALL_COLUMNS = arrayOf(
@@ -47,7 +45,6 @@ class PostDaoImpl (private  val db: SQLiteDatabase): PostDao {
             COLUMN_LIKES,
             COLUMN_SHARE,
             COLUMN_SHARE_REAL,
-            COLUMN_AUTHOR_AVATAR,
             COLUMN_VIEW,
             COLUMN_VIDEO
         )
@@ -144,9 +141,8 @@ class PostDaoImpl (private  val db: SQLiteDatabase): PostDao {
                 likes = getLong(getColumnIndexOrThrow(PostColumns.COLUMN_LIKES)),
                 share = getLong(getColumnIndexOrThrow(PostColumns.COLUMN_SHARE)),
                 shareReal = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_SHARE_REAL)) !=0,
-                authorAvatar =getString(getColumnIndexOrThrow(PostColumns.COLUMN_AUTHOR_AVATAR)),
                 view = getLong(getColumnIndexOrThrow(PostColumns.COLUMN_VIEW)),
-                video = getString(getColumnIndexOrThrow(PostColumns.COLUMN_VIDEO)),
+                video = getString(getColumnIndexOrThrow(PostColumns.COLUMN_VIDEO))
 
             )
         }
