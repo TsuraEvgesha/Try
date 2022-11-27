@@ -21,6 +21,7 @@ class PostRepositorySQLiteImpl (
 
     override fun getAll(): LiveData<List<Post>> = data
     override fun likeById(id: Long) {
+        dao.likeById(id)
         posts = posts.map {
             if (it.id != id) it else it.copy(
                 liked = !it.liked,
@@ -32,12 +33,14 @@ class PostRepositorySQLiteImpl (
     }
 
     override fun removeById(id: Long) {
+        dao.removeById(id)
         posts = posts.filter { it.id != id }
         data.value = posts
 
     }
 
     override fun shareById(id: Long) {
+        dao.shareById(id)
         posts = posts.map {
             if (it.id != id) it else it.copy(share = (it.share + 1))
         }
