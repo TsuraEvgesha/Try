@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nmedia.databinding.FragmentNewPostBinding
 import ru.netology.nmedia.util.AndroidUtils
-import viewmodel.PostViewModel
+import ru.netology.nmedia.viewmodel.PostViewModel
 
 
 class

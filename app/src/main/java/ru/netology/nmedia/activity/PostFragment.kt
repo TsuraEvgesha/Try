@@ -15,7 +15,7 @@ import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.FragmentPostBinding
 import ru.netology.nmedia.dto.Post
-import viewmodel.PostViewModel
+import ru.netology.nmedia.viewmodel.PostViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

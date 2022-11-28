@@ -14,7 +14,8 @@ import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
 
-internal class PostsAdapter (private val listener: PostListener): ListAdapter<Post, PostsAdapter.PostViewHolder>(PostDiffCallback())  {
+
+internal class PostsAdapter (private val listener: PostListener): ListAdapter <Post, PostsAdapter.PostViewHolder>(PostDiffCallback())  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val inflater = LayoutInflater.from(parent.context)

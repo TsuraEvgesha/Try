@@ -14,7 +14,7 @@ import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
-import viewmodel.PostViewModel
+import ru.netology.nmedia.viewmodel.PostViewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -25,8 +25,8 @@ class FeedFragment : Fragment() {
     companion object {
         private  const val TEXT_KEY="TEXT_KEY"
         var Bundle.textArg: String?
-        set(value) = putString(TEXT_KEY, value)
-        get() = getString(TEXT_KEY)
+            set(value) = putString(TEXT_KEY, value)
+            get() = getString(TEXT_KEY)
 
 
     }
@@ -130,31 +130,28 @@ class FeedFragment : Fragment() {
 
 }
 
-    fun counter(item: Long): String {
-        return when (item) {
-            in 1000..1099 -> {
-                val num = numberToInt(item / 1000.0)
-                (num + "K") }
-            in 1100..9999 -> {
-                val num = numberToInt(item / 1000.0)
-                (num + "K") }
-            in 10_000..999_999 -> {
-                ((item / 1000).toString() + "K") }
-            in 1_000_000..1_000_000_000 -> {
-                val num = numberToInt(item / 1_000_000.0)
-                (num + "M") }
-            else -> item.toString()
-        }
+fun counter(item: Long): String {
+    return when (item) {
+        in 1000..1099 -> {
+            val num = numberToInt(item / 1000.0)
+            (num + "K") }
+        in 1100..9999 -> {
+            val num = numberToInt(item / 1000.0)
+            (num + "K") }
+        in 10_000..999_999 -> {
+            ((item / 1000).toString() + "K") }
+        in 1_000_000..1_000_000_000 -> {
+            val num = numberToInt(item / 1_000_000.0)
+            (num + "M") }
+        else -> item.toString()
     }
+}
 
-    private fun numberToInt (number: Double): String {
-        val demFormat = DecimalFormat("#.#")
-        demFormat.roundingMode = RoundingMode.FLOOR
-        return demFormat.format(number).toString()
-    }
-
-
-
+private fun numberToInt (number: Double): String {
+    val demFormat = DecimalFormat("#.#")
+    demFormat.roundingMode = RoundingMode.FLOOR
+    return demFormat.format(number).toString()
+}
 
 
 

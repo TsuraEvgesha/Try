@@ -12,5 +12,3 @@ data class Post (
     val view: Long,
     val video: String? = null
 )
-
-
