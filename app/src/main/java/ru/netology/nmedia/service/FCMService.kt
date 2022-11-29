@@ -1,6 +1,5 @@
 package ru.netology.nmedia.service
 
-
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -13,7 +12,6 @@ import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import java.lang.IllegalArgumentException
 import kotlin.random.Random
-
 
 class FCMService : FirebaseMessagingService() {
     private val action = "action"
@@ -55,7 +53,9 @@ class FCMService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         println(token)
+//        feb1cc3a4ebf021084200f37db3f2aa8387fbac3 достала с личного кабинета Firebase.
     }
+
 
     private fun handleLike(content: Like) {
         val notification = NotificationCompat.Builder(this, channelId)
@@ -95,7 +95,6 @@ class FCMService : FirebaseMessagingService() {
             .notify(Random.nextInt(100_000), notification)
     }
 }
-
 enum class Action {
     LIKE, NEW_POST, ERROR;
 
@@ -109,7 +108,6 @@ enum class Action {
         }
     }
 }
-
 data class Like(
     val userId: Long,
     val userName: String,
@@ -123,3 +121,4 @@ data class NewPost(
     val postTopic: String
 
 )
+
