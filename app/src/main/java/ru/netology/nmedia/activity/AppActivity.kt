@@ -2,6 +2,7 @@ package ru.netology.nmedia.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.google.android.gms.common.ConnectionResult
@@ -40,7 +41,9 @@ class AppActivity : AppCompatActivity(R.layout.activity_app){
             }
             if (isUserResolvableError(code)){
                 getErrorDialog(this@AppActivity,code,9000)?.show()
+                return
             }
+            Toast.makeText(this@AppActivity,"Google Api Unavailable",Toast.LENGTH_LONG).show()
 
         }
     }
