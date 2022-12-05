@@ -122,3 +122,14 @@ data class NewPost(
 
 )
 
+//{"userId": 1,
+//"userName": "Evgeniya",
+//"postId": 2,
+//"postAuthor": "Netology"}
+//
+//{"postAuthor": "Dary",
+//    "postText": "Новый лайк",
+//    "postTopic": "пик"}
+
+
+

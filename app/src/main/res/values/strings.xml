@@ -20,5 +20,11 @@
     <string name="channel_remote_description" translatable="false">Notifications from remote server</string>
     <string name="notification_user_liked" translatable="false">%1$s liked %2$s\'s post</string>
     <string name="notification_new_post" translatable="false">%1$s published new post</string>
+    <string name="error_loading" />
+    <string name="retry_loading" />
+    <string name="post_empty" />
+    <string name="todo">TODO</string>
+    <string name="input_video_link_here" />
+    <string name="post_input_text" />
 </resources>
 

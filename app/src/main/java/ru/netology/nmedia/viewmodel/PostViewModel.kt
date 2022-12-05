@@ -1,41 +1,1 @@
-package ru.netology.nmedia.viewmodel
-
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.repository.db.AppDb
-import ru.netology.nmedia.repository.PostRepository
-import ru.netology.nmedia.repository.PostRepositoryFileImpl
-
-private val empty = Post(0,"Me","now",0,false,0,false,"",0, "https://www.youtube.com/")
-class PostViewModel(application: Application): AndroidViewModel(application) {
-    private val repository: PostRepository = PostRepositoryFileImpl(AppDb.getInstance(context = application).postDao())
-    val data = repository.getAll()
-    val edited = MutableLiveData(empty)
-    fun likeById(id:Long) = repository.likeById(id)
-    fun shareById(id:Long) = repository.shareById(id)
-    fun removeById(id: Long) = repository.removeById(id)
-    fun save() {
-        edited.value?.let{
-            repository.save(it)
-        }
-        edited.value = empty
-    }
-    fun edit(post: Post){
-        edited.value = post
-    }
-    fun editContent(content: String){
-        edited.value.let {
-            val trimmed = content.trim()
-            if (edited.value?.content == trimmed){
-                return
-            }
-            edited.value = edited.value?.copy(content=trimmed)
-        }
-    }
-
-
-
-
-}
+package ru.netology.nmedia.viewmodelimport android.app.Applicationimport androidx.lifecycle.AndroidViewModelimport androidx.lifecycle.LiveDataimport androidx.lifecycle.MutableLiveDataimport ru.netology.nmedia.dto.Postimport ru.netology.nmedia.repository.PostRepositoryimport ru.netology.nmedia.repository.PostRepositoryFileImplimport ru.netology.nmedia.util.SingleLiveEventimport java.io.IOExceptionimport kotlin.concurrent.threadprivate val empty = Post(0,"Me","now",0,false,0,false,"",0, "https://www.youtube.com/")class PostViewModel(application: Application) : AndroidViewModel(application) {private val repository: PostRepository = PostRepositoryFileImpl()    private val _data = MutableLiveData(FeedModel())    val data: LiveData<FeedModel>    get() = _data    val edited = MutableLiveData(empty)    private val _postCreated = SingleLiveEvent<Unit>()    val postCreated: LiveData<Unit>    get() = _postCreated    init {        loadPosts()    }    fun loadPosts() {        thread {            _data.postValue(FeedModel(loading = true))            try{                val posts = repository.getAll()                FeedModel(posts = posts, empty = posts.isEmpty())            } catch (e: IOException) {                FeedModel(error = true)            }.also(_data::postValue)        }    }    fun likeById(id:Long){        val old = _data.value?.posts.orEmpty()        val posts = _data.value?.posts.orEmpty()        posts.map{            if (it.id != id) it else it.copy(liked = true, likes = +1)        }        try {            repository.likeById(id)        } catch (e: IOException) {            _data.postValue(_data.value?.copy(posts = old))        }    }    fun dislikeById(id:Long) {        thread {            val old = _data.value?.posts.orEmpty()            val posts = _data.value?.posts.orEmpty()            posts.map{                if (it.id != id) it else it.copy(liked = false, likes = -1)            }            try {                repository.dislikeById(id)            } catch (e: IOException) {                _data.postValue(_data.value?.copy(posts = old))            }        }    }    fun refresh() {        loadPosts()    }    fun removeById(id: Long) {        thread {            val old = _data.value?.posts.orEmpty()            _data.postValue(                _data.value?.copy(posts = _data.value?.posts.orEmpty()                    .filter { it.id != id }                )            )            try {                repository.removeById(id)            } catch (e: IOException) {                _data.postValue(_data.value?.copy(posts = old))            }        }    }    fun save() {        edited.value?.let{            thread {                repository.save(it)                _postCreated.postValue(Unit)            }        }        edited.value = empty    }    fun edit(post: Post){        edited.value = post    }    fun editContent(content: String){        edited.value.let {            val trimmed = content.trim()            if (edited.value?.content == trimmed){                return            }            edited.value = edited.value?.copy(content=trimmed)        }    }}

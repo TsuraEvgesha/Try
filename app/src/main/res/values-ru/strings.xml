@@ -15,4 +15,10 @@
     <string name="hello_blank_fragment">Добро пожаловать</string>
     <string name="notification_user_liked" translatable="false">Пользователю %1$s понравился пост %2$s</string>
     <string name="notification_new_post" translatable="false">%1$s опубликовал новый пост</string>
+    <string name="error_loading">Ошибка загрузки</string>
+    <string name="retry_loading">Повторить</string>
+    <string name="post_empty">Пост пуст</string>
+    <string name="todo">Исключение</string>
+    <string name="input_video_link_here">Введите ссылку на видео здесь</string>
+    <string name="post_input_text">Введите текст</string>
 </resources>

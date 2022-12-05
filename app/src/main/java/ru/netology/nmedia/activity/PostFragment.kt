@@ -69,7 +69,6 @@ class PostFragment : Fragment() {
                 }
                 val shareIntent = Intent.createChooser(intent, getString(R.string.share))
                 startActivity(shareIntent)
-                viewModel.shareById(post.id)
             }
 
             override fun onRemote(post: Post) {
@@ -93,12 +92,9 @@ class PostFragment : Fragment() {
             }
         }
         )
-        viewModel.data.observe(viewLifecycleOwner){posts->
-            val post = posts.find { it.id == args.postId.toLong() }?: run {
+        viewModel.data.observe(viewLifecycleOwner){
                 findNavController().navigateUp()
                 return@observe
-            }
-            viewHolder.bind(post)
         }
         return binding.root
     }
