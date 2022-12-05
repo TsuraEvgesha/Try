@@ -1,6 +1,7 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -87,26 +88,28 @@ class FeedFragment : Fragment() {
                 }
                 val shareIntent = Intent.createChooser(intent,getString(R.string.share))
                 startActivity(shareIntent)
+                viewModel.sharedById(post.id)
+
             }
 
             override fun onRemote(post: Post) {
                 viewModel.removeById(post.id)
             }
 
-//            override fun onPlayVideo(post: Post) {
-//                Intent(Intent.ACTION_VIEW,
-//                    Uri.parse(post.video)).apply {
-//                    if (requireContext().packageManager != null){
-//                        startActivity(this)
-//                    }
-//                }
-//            }
-//
-//            override fun onPost(post: Post) {
-//                val action=FeedFragmentDirections.actionFeedFragment2ToPostFragment(post.id.toInt())
-//                findNavController().navigate(action)
-//
-//            }
+            override fun onPlayVideo(post: Post) {
+                Intent(Intent.ACTION_VIEW,
+                    Uri.parse(post.video)).apply {
+                    if (requireContext().packageManager != null){
+                        startActivity(this)
+                    }
+                }
+            }
+
+            override fun onPost(post: Post) {
+                val action=FeedFragmentDirections.actionFeedFragment2ToPostFragment(post.id.toInt())
+                findNavController().navigate(action)
+
+            }
         }
         )
 

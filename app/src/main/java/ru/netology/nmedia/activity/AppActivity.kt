@@ -12,6 +12,7 @@ import ru.netology.nmedia.activity.FeedFragment.Companion.textArg
 
 class AppActivity : AppCompatActivity(R.layout.activity_app){
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         intent?.let {
             if (it.action!= Intent.ACTION_SEND){

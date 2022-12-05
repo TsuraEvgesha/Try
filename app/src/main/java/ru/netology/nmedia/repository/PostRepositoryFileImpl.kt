@@ -45,6 +45,16 @@ class PostRepositoryFileImpl: PostRepository {
             .close()
     }
 
+    override fun sharedById(id: Long) {
+        val request: Request = Request.Builder()
+            .post(gson.toJson(id).toRequestBody(jsonType))
+            .url("${BASE_URL}/api/posts/{$id}/likes")
+            .build()
+        return client.newCall(request)
+            .execute()
+            .close()
+    }
+
     override fun removeById(id: Long) {
         val request: Request = Request.Builder()
             .delete()
