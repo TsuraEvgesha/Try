@@ -38,12 +38,12 @@ class PostViewHolder(
     fun bind(post: Post){
         binding.apply {
             author.text = post.author
-            published.text = post.published
+            published.text = post.published.toString()
             content.text = post.content
             share.isChecked = post.shareReal
-            like.isChecked = post.liked
+            like.isChecked = post.likedByMe
             share.text = counter(post.share)
-            like.text = counter(post.likes)
+            like.text = counter(post.likes.toLong())
             videoGroup.isVisible = post.video !=null
 
 

@@ -3,17 +3,15 @@ package ru.netology.nmedia.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostListener
 import ru.netology.nmedia.adapter.PostsAdapter
-import ru.netology.nmedia.databinding.FragmentNewPostBinding
 import ru.netology.nmedia.databinding.FragmentPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.AndroidUtils
@@ -37,7 +35,7 @@ class PostFragment : Fragment() {
     private val viewModel: PostViewModel by viewModels(
         ownerProducer= ::requireParentFragment
     )
-    private val args by navArgs<PostFragmentArgs>()
+//    private val args by navArgs<PostFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +51,7 @@ class PostFragment : Fragment() {
     ): View {
         val binding= FragmentPostBinding.inflate(inflater,container, false)
 
-        val viewHolder= PostsAdapter.PostViewHolder(binding.cardPost, object : PostListener {
+        PostsAdapter.PostViewHolder(binding.cardPost, object : PostListener {
 
             override fun onEdit(post: Post) {
                 val action = PostFragmentDirections.actionPostFragmentToNewPostFragment2(post.content)
