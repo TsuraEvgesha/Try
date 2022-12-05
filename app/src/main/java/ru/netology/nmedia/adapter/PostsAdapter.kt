@@ -54,17 +54,17 @@ class PostViewHolder(
             share.setOnClickListener {
                 listener.onShare(post)
             }
-            videoBanner.setOnClickListener {
-                listener.onPlayVideo(post)
-            }
-            playVideo.setOnClickListener {
-                listener.onPlayVideo(post)
-
-            }
-            videoGroup.setOnClickListener {
-                listener.onPlayVideo(post)
-
-            }
+//            videoBanner.setOnClickListener {
+//                listener.onPlayVideo(post)
+//            }
+//            playVideo.setOnClickListener {
+//                listener.onPlayVideo(post)
+//
+//            }
+//            videoGroup.setOnClickListener {
+//                listener.onPlayVideo(post)
+//
+//            }
 
 
             menu.setOnClickListener {
@@ -85,9 +85,9 @@ class PostViewHolder(
                     }
                 }.show()
             }
-            root.setOnClickListener {
-                listener.onPost(post)
-            }
+//            root.setOnClickListener {
+//                listener.onPost(post)
+//            }
         }
 
     }

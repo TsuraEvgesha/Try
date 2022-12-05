@@ -1,7 +1,6 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +35,7 @@ class FeedFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentFeedBinding.inflate(
             inflater,
             container,
@@ -68,8 +67,8 @@ class FeedFragment : Fragment() {
         val adapter = PostsAdapter (object : PostListener {
 
             override fun onEdit(post: Post) {
-                val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2(post.content)
-                findNavController().navigate(action)
+//                val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2(post.content)
+//                findNavController().navigate(action)
 
                 viewModel.edit(post)
 
@@ -94,20 +93,20 @@ class FeedFragment : Fragment() {
                 viewModel.removeById(post.id)
             }
 
-            override fun onPlayVideo(post: Post) {
-                Intent(Intent.ACTION_VIEW,
-                    Uri.parse(post.video)).apply {
-                    if (requireContext().packageManager != null){
-                        startActivity(this)
-                    }
-                }
-            }
-
-            override fun onPost(post: Post) {
-                val action=FeedFragmentDirections.actionFeedFragment2ToPostFragment(post.id.toInt())
-                findNavController().navigate(action)
-
-            }
+//            override fun onPlayVideo(post: Post) {
+//                Intent(Intent.ACTION_VIEW,
+//                    Uri.parse(post.video)).apply {
+//                    if (requireContext().packageManager != null){
+//                        startActivity(this)
+//                    }
+//                }
+//            }
+//
+//            override fun onPost(post: Post) {
+//                val action=FeedFragmentDirections.actionFeedFragment2ToPostFragment(post.id.toInt())
+//                findNavController().navigate(action)
+//
+//            }
         }
         )
 
@@ -128,8 +127,8 @@ class FeedFragment : Fragment() {
         }
 
         binding.create.setOnClickListener{
-            val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2("")
-            findNavController().navigate(action)
+//            val action=FeedFragmentDirections.actionFeedFragment2ToNewPostFragment2("")
+            findNavController().navigate(R.id.action_feedFragment2_to_newPostFragment2)
 
 
         }
