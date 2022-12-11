@@ -35,24 +35,31 @@ class PostRepositoryFileImpl: PostRepository {
             }
     }
 
-    override fun likeById(id: Long) {
+    override fun likeById(id: Long):Post {
         val request: Request = Request.Builder()
-            .post(gson.toJson(id).toRequestBody(jsonType))
-            .url("${BASE_URL}/api/posts/{$id}/likes")
+            .post("".toRequestBody())
+            .url("${BASE_URL}/api/posts/$id/likes")
             .build()
         return client.newCall(request)
             .execute()
-            .close()
+            .let { it.body?.string() ?:throw RuntimeException("error") }
+            .let{
+                gson.fromJson(it, Post::class.java)
+            }
+
     }
 
-    override fun sharedById(id: Long) {
+    override fun sharedById(id: Long):Post {
         val request: Request = Request.Builder()
-            .post(gson.toJson(id).toRequestBody(jsonType))
-            .url("${BASE_URL}/api/posts/{$id}/likes")
+            .post("".toRequestBody())
+            .url("${BASE_URL}/api/posts/$id/likes")
             .build()
         return client.newCall(request)
             .execute()
-            .close()
+            .let { it.body?.string() ?: throw RuntimeException("error") }
+            .let {
+                gson.fromJson(it, Post::class.java)
+            }
     }
 
     override fun removeById(id: Long) {
@@ -66,14 +73,18 @@ class PostRepositoryFileImpl: PostRepository {
             .close()
     }
 
-    override fun dislikeById(id: Long) {
+    override fun dislikeById(id: Long):Post {
         val request: Request = Request.Builder()
             .delete()
-            .url("${BASE_URL}/api/posts/{$id}/likes")
+            .url("${BASE_URL}/api/posts/$id/likes")
             .build()
         return client.newCall(request)
             .execute()
-            .close()
+            .let { it.body?.string() ?:throw RuntimeException("error") }
+            .let {
+                gson.fromJson(it, Post::class.java)
+
+            }
     }
 
     override fun save(post: Post) {
