@@ -4,10 +4,11 @@ import androidx.lifecycle.LifecycleOwner
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import java.util.concurrent.atomic.AtomicBoolean
 
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
-    private var pending = false
+    private var pending = AtomicBoolean(false)
 
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T?>) {
@@ -16,15 +17,14 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         }
 
         super.observe(owner) {
-            if (pending) {
-                pending = false
+            if (pending.compareAndSet(true,false)) {
                 observer.onChanged(it)
             }
         }
     }
 
     override fun setValue(t: T?) {
-        pending = true
+        pending.set(true)
         super.setValue(t)
     }
 }
