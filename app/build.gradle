@@ -54,13 +54,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-base:18.1.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     testImplementation 'junit:junit:4.13.2'
+    def glide_version = "4.14.2"
     def okhttp_version = "4.10.0"
     def play_services_base_version = "18.1.0"
     def activity_version = "1.6.1"
     def lifecycle_version= "2.5.1"
-    def gson_version = "2.9.0"
+    def gson_version = "2.10"
     def nav_version = "2.5.3"
     def room_version = "2.4.3"
+    implementation("com.github.bumptech.glide:glide:$glide_version")
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics-ktx'

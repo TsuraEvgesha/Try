@@ -8,7 +8,7 @@
     tools:context=".activity.AppActivity">
 
     <ImageView
-        android:id="@+id/avatar"
+        android:id="@+id/authorAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -29,8 +29,8 @@
         app:layout_constraintBottom_toTopOf="@id/published"
         app:layout_constraintEnd_toStartOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="@id/avatar"
+        app:layout_constraintStart_toEndOf="@+id/authorAvatar"
+        app:layout_constraintTop_toTopOf="@id/authorAvatar"
         tools:text="@string/author" />
 
     <TextView
@@ -38,8 +38,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/avatar"
-        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintBottom_toBottomOf="@id/authorAvatar"
+        app:layout_constraintStart_toEndOf="@id/authorAvatar"
         app:layout_constraintTop_toBottomOf="@id/author"
         android:text="@string/published" />
 
@@ -50,7 +50,7 @@
         android:visibility="visible"
         app:barrierDirection="bottom"
         app:barrierMargin="10dp"
-        app:constraint_referenced_ids="menu,published,author,avatar"
+        app:constraint_referenced_ids="menu,published,author,authorAvatar"
         tools:layout_editor_absoluteX="4dp"
         tools:layout_editor_absoluteY="57dp" />
 
@@ -63,8 +63,14 @@
         android:autoLink="web"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/authorAvatar"
         tools:text="@string/content" />
+    <ImageView
+        android:id="@+id/attachImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        />
     <View
         android:id="@+id/video_banner"
         android:layout_width="match_parent"
@@ -107,7 +113,7 @@
         android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toStartOf="@+id/number_of_visit"
-        app:layout_constraintTop_toBottomOf="@+id/video_banner"
+        app:layout_constraintTop_toBottomOf="@+id/attachImage"
         app:srcCompat="@drawable/ic_baseline_visibility_24"
         tools:ignore="contentDescription,ImageContrastCheck" />
 
@@ -119,7 +125,7 @@
         tools:text="@string/visit"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_banner" />
+        app:layout_constraintTop_toBottomOf="@+id/attachImage" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
@@ -131,7 +137,7 @@
         android:checkable="true"
         app:icon="@drawable/ic_like_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_banner"
+        app:layout_constraintTop_toBottomOf="@+id/attachImage"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.button.MaterialButton
@@ -145,7 +151,7 @@
         android:text=""
         app:icon="@drawable/ic_share_24dp"
         app:layout_constraintStart_toEndOf="@+id/like"
-        app:layout_constraintTop_toBottomOf="@+id/video_banner"
+        app:layout_constraintTop_toBottomOf="@+id/attachImage"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.button.MaterialButton
