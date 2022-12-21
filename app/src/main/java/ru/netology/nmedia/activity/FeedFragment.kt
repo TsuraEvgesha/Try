@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -88,7 +89,7 @@ class FeedFragment : Fragment() {
                 }
                 val shareIntent = Intent.createChooser(intent,getString(R.string.share))
                 startActivity(shareIntent)
-                viewModel.sharedById(post.id)
+//                viewModel.sharedById(post.id)
 
             }
 
@@ -124,6 +125,9 @@ class FeedFragment : Fragment() {
             binding.emptyPostMes.isVisible = state.empty
             binding.swiprefresh.isRefreshing = state.loading
         }
+        viewModel.requestCode.observe(viewLifecycleOwner) { requestCode ->
+            toastOnError(requestCode)
+        }
 
         binding.retry.setOnClickListener {
             viewModel.loadPosts()
@@ -143,6 +147,20 @@ class FeedFragment : Fragment() {
 //            .replace(R.id.nav_host_fragment_container,PostFragment.newInstance("1","2"))
 //            .commit()
         return binding.root
+    }
+    private fun toastOnError(requestCode: Int) {
+        if (requestCode.toString().startsWith("1")) {
+            Toast.makeText(context, "Информационный код ответа", Toast.LENGTH_SHORT).show()
+        }
+        if (requestCode.toString().startsWith("3")) {
+            Toast.makeText(context, "Перенаправление", Toast.LENGTH_SHORT).show()
+        }
+        if (requestCode.toString().startsWith("4")) {
+            Toast.makeText(context, "Ошибка клиента", Toast.LENGTH_SHORT).show()
+        }
+        if (requestCode.toString().startsWith("5")) {
+            Toast.makeText(context, "Ошибка сервера", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

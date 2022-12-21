@@ -73,7 +73,7 @@ class PostFragment : Fragment() {
                 }
                 val shareIntent = Intent.createChooser(intent, getString(R.string.share))
                 startActivity(shareIntent)
-                viewModel.sharedById(post.id)
+//                viewModel.sharedById(post.id)
             }
 
             override fun onRemote(post: Post) {
